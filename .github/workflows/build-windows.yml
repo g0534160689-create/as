@@ -1,0 +1,31 @@
+name: Build WinUI 3
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+      - name: Restore
+        run: dotnet restore RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj
+      - name: Build x64
+        run: dotnet build RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj --configuration Release --no-restore -p:Platform=x64
+      - name: Publish unpackaged app
+        run: dotnet publish RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj --configuration Release --no-restore -r win-x64 -p:WindowsPackageType=None -p:SelfContained=false -o artifacts/win-x64
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: RavKavKiosk-WinUI3-win-x64
+          path: artifacts/win-x64
+          if-no-files-found: error
