@@ -57,7 +57,7 @@ public sealed partial class AdminPage : Page
     {
         var domains = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var raw in (text ?? string.Empty).Split(
-                     new[] { '\\r', '\\n', ',', ';', ' ', '\\t' },
+                     new[] { '\r', '\n', ',', ';', ' ', '\t' },
                      StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
         {
             var domain = raw.Trim().TrimEnd('.');
@@ -69,7 +69,7 @@ public sealed partial class AdminPage : Page
             if (domain.Length > 253 ||
                 !System.Text.RegularExpressions.Regex.IsMatch(
                     domain,
-                    @"^(?=.{1,253}$)(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,63}$"))
+                    @"^(?=.{1,253}$)(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,63}$"))
                 throw new InvalidDataException($"שם מתחם לא תקין: {raw}");
 
             domains.Add(domain.ToLowerInvariant());
