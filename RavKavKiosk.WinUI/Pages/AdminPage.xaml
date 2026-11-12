@@ -47,7 +47,7 @@
                 <Button Content="טען מחדש" Click="Reload_Click"/>
             </StackPanel>
             <InfoBar x:Name="SaveStatus" IsOpen="False" Severity="Success"/>
-            <Border Background="{ThemeResource.PanelBackgroundBrush}" CornerRadius="12" Padding="16">
+            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="12" Padding="16">
                 <StackPanel Spacing="5">
                     <TextBlock Text="שמירה וגיבוי" FontWeight="SemiBold"/>
                     <TextBlock Text="ההגדרות נשמרות בקובץ מקומי עם גיבוי settings.json.bak. כל שינוי במדיניות מתועד ביומן הפעילות." TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
