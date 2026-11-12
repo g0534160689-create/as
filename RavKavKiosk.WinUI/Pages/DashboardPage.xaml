@@ -39,8 +39,8 @@
             <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="24">
                 <StackPanel Spacing="10">
                     <TextBlock Text="תשתית המערכת" FontSize="20" FontWeight="SemiBold"/>
-                    <TextBlock Text="היישום נבנה מחדש ב־WinUI 3 וב־XAML. בשלב הבא יחוברו רכיבי רב־קו, ניהול הרשאות, שמירת מדיניות מקומית, חלונות קופצים ויומן שינויים." TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
-                    <InfoBar IsOpen="True" Severity="Informational" Title="גרסת בסיס" Message="זהו שלד ראשוני של הממשק. חיבור פעולות ההטענה והקורא יבוצע לאחר בדיקת הבנייה."/>
+                    <TextBlock Text="המערכת כוללת כעת דפדפן WebView2 פנימי, מדיניות אתרים, בחירת אלמנטים חזותית, שמירת הגדרות עם גיבוי, יומן פעילות וערכות נושא." TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
+                    <InfoBar IsOpen="True" Severity="Informational" Title="מצב המערכת" Message="ממשק הגלישה והניהול מחוברים. חיבור קורא הכרטיסים הפיזי עדיין דורש פיתוח ובדיקת חומרה."/>
                 </StackPanel>
             </Border>
         </StackPanel>
