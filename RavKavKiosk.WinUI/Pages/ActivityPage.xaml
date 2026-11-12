@@ -10,10 +10,11 @@
             <TextBlock x:Name="ActivitySummary" Text="פעולות מערכת, שינויים, חסימות ושגיאות" Foreground="{ThemeResource MutedTextBrush}"/>
         </StackPanel>
         <Grid Grid.Row="1" ColumnSpacing="8">
-            <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
             <TextBox x:Name="SearchText" PlaceholderText="חיפוש ביומן..." TextChanged="SearchText_TextChanged"/>
             <Button Grid.Column="1" Content="רענן" Click="Refresh_Click"/>
-            <Button Grid.Column="2" Content="נקה יומן" Click="Clear_Click"/>
+            <Button Grid.Column="2" Content="ייצא CSV" Click="Export_Click"/>
+            <Button Grid.Column="3" Content="נקה יומן" Click="Clear_Click"/>
         </Grid>
         <Border Grid.Row="2" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="12" Padding="8">
             <ListView x:Name="ActivityList" SelectionMode="None">
