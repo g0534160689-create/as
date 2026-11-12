@@ -1,0 +1,15 @@
+<Page
+    x:Class="RavKavKiosk.WinUI.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    FlowDirection="RightToLeft">
+    <StackPanel Padding="34" Spacing="18">
+        <TextBlock Text="הגדרות" FontSize="30" FontWeight="SemiBold"/>
+        <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="22">
+            <StackPanel Spacing="12">
+                <TextBlock Text="מראה המערכת" FontSize="19" FontWeight="SemiBold"/>
+                <TextBlock Text="ערכת הנושא הראשונית היא כהה. בחירת ערכות נושא נוספות תתווסף בהמשך." Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Page>
