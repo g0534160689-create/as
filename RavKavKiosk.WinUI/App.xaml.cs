@@ -28,8 +28,8 @@ public partial class App : Application
         {
             StartupDiagnostics.Write(ex, "Application launch");
             MessageBoxW(IntPtr.Zero,
-                "לא ניתן להפעיל את התוכנה. פרטי התקלה נשמרו בקובץ:\\n" + StartupDiagnostics.LogPath +
-                "\\n\\n" + ex.Message,
+                "לא ניתן להפעיל את התוכנה. פרטי התקלה נשמרו בקובץ:\n" + StartupDiagnostics.LogPath +
+                "\n\n" + ex.Message,
                 "אוצר החכמה – עמדת רב־קו", 0x10);
         }
     }
