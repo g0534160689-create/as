@@ -39,7 +39,7 @@ jobs:
         shell: powershell
         run: |
           New-Item -ItemType Directory -Force artifacts/publish | Out-Null
-          msbuild RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj /t:Publish /m /v:minimal /p:Configuration=Release /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:WindowsPackageType=None /p:WindowsAppSDKSelfContained=true /p:PublishSingleFile=false /p:PublishReadyToRun=true /p:PublishDir="$PWD/artifacts/publish/"
+          msbuild RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj /t:Publish /m /v:minimal /p:Configuration=Release /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:WindowsPackageType=None /p:WindowsAppSDKSelfContained=true /p:PublishSingleFile=false /p:PublishReadyToRun=false /p:PublishDir="$PWD/artifacts/publish/"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Install Inno Setup
