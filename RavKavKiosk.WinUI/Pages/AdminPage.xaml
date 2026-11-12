@@ -12,18 +12,37 @@
             <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="22">
                 <StackPanel Spacing="16">
                     <TextBlock Text="הרשאות וחלונות" FontSize="20" FontWeight="SemiBold"/>
-                    <ToggleSwitch x:Name="AllowPopupsSwitch" Header="אפשר חלונות קופצים מאתרים מורשים" IsOn="True"/>
-                    <ToggleSwitch x:Name="AllowExternalLinksSwitch" Header="אפשר קישורים חיצוניים מאושרים" IsOn="False"/>
-                    <ToggleSwitch x:Name="KeepActivitySwitch" Header="תעד פעולות ושינויים ביומן" IsOn="True"/>
-                    <Button Content="שמור הגדרות" HorizontalAlignment="Left" Click="Save_Click"/>
-                    <InfoBar x:Name="SaveStatus" IsOpen="False" Severity="Success" Title="ההגדרות נשמרו"/>
+                    <ToggleSwitch x:Name="AllowPopupsSwitch" Header="אפשר חלונות קופצים מאתרים מורשים"/>
+                    <ToggleSwitch x:Name="AllowExternalLinksSwitch" Header="אפשר קישורים חיצוניים מאושרים"/>
+                    <ToggleSwitch x:Name="KeepActivitySwitch" Header="תעד פעולות ושינויים ביומן"/>
                 </StackPanel>
             </Border>
-            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="22">
-                <StackPanel Spacing="12">
-                    <TextBlock Text="רשימות וכללי אתרים" FontSize="20" FontWeight="SemiBold"/>
-                    <TextBlock Text="בשלב הבא יתווספו כאן רשימה שחורה ולבנה, כללי חסימה לפי כתובת, שליטה ברכיבי דף, החלפת טקסט ותמונות, ייבוא וייצוא גיבויים והיסטוריית שינויים." TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
-                    <Button Content="פתיחת ניהול מתקדם" HorizontalAlignment="Left" IsEnabled="False"/>
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="רשימה שחורה" FontSize="19" FontWeight="SemiBold"/>
+                        <TextBlock Text="דומיין אחד בכל שורה. לדוגמה: example.com" Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
+                        <TextBox x:Name="BlacklistText" AcceptsReturn="True" MinHeight="170" TextWrapping="Wrap" PlaceholderText="example.com&#10;ads.example.org"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="רשימה לבנה" FontSize="19" FontWeight="SemiBold"/>
+                        <TextBlock Text="אתרים שמורשים במפורש. דומיין אחד בכל שורה." Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
+                        <TextBox x:Name="WhitelistText" AcceptsReturn="True" MinHeight="170" TextWrapping="Wrap" PlaceholderText="ravkavonline.co.il"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="שמור את כל ההגדרות" Click="Save_Click"/>
+                <Button Content="טען מחדש מהדיסק" Click="Reload_Click" Style="{StaticResource DefaultButtonStyle}"/>
+            </StackPanel>
+            <InfoBar x:Name="SaveStatus" IsOpen="False" Severity="Success" Title="ההגדרות נשמרו במחשב"/>
+            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="הערה חשובה" FontSize="18" FontWeight="SemiBold"/>
+                    <TextBlock Text="הרשימות נשמרות כעת בקובץ settings.json במחשב. אכיפת החסימה וההרשאה בתוך WebView2 תחובר בשלב נפרד; שמירת הרשימה לבדה עדיין אינה חוסמת אתרים בפועל." TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
                 </StackPanel>
             </Border>
         </StackPanel>
