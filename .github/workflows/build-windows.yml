@@ -34,7 +34,7 @@ jobs:
         shell: powershell
         run: |
           New-Item -ItemType Directory -Force artifacts/installer | Out-Null
-          $version = if (" \${{ github.ref_type }}" -eq "tag") { " \${{ github.ref_name }}".TrimStart("v") } else { "1.0. \${{ github.run_number }}" }
+          $version = if ("${{ github.ref_type }}" -eq "tag") { "${{ github.ref_name }}".TrimStart("v") } else { "1.0.${{ github.run_number }}" }
           & "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" "/DAppVersion=$version" "installer\RavKavKiosk.iss"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Upload Windows installer
