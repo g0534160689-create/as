@@ -1,0 +1,11 @@
+<Page
+    x:Class="RavKavKiosk.WinUI.Pages.ActivityPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    FlowDirection="RightToLeft">
+    <StackPanel Padding="34" Spacing="12">
+        <TextBlock Text="יומן פעילות" FontSize="30" FontWeight="SemiBold"/>
+        <TextBlock Text="כאן יוצגו שמירת הגדרות, שינויי מדיניות, חסימות, אישורי חלונות ושגיאות מערכת." Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
+        <InfoBar IsOpen="True" Severity="Informational" Title="יומן הפעילות יתווסף בשלב הבא" Message="המסך הוקם כחלק ממבנה המערכת החדש."/>
+    </StackPanel>
+</Page>
