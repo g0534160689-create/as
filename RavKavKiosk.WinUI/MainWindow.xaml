@@ -1,0 +1,45 @@
+<Window
+    x:Class="RavKavKiosk.WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:pages="using:RavKavKiosk.WinUI.Pages"
+    Title="אוצר החכמה | עמדת רב־קו">
+    <Grid Background="{ThemeResource AppBackgroundBrush}" FlowDirection="RightToLeft">
+        <NavigationView x:Name="RootNavigation"
+                        IsBackButtonVisible="Collapsed"
+                        IsSettingsVisible="True"
+                        PaneDisplayMode="Left"
+                        OpenPaneLength="252"
+                        SelectionChanged="RootNavigation_SelectionChanged"
+                        Background="Transparent">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="ראשי" Tag="home">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE80F;"/></NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="עמדת רב־קו" Tag="ravkav">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE8D7;"/></NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="ניהול מערכת" Tag="admin">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE713;"/></NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="יומן פעילות" Tag="activity">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE81C;"/></NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="הגדרות" Tag="settings">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE settings;"/></NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
+            <NavigationView.Header>
+                <Border Padding="24,18,24,16">
+                    <StackPanel Spacing="3">
+                        <TextBlock Text="אוצר החכמה" FontSize="21" FontWeight="SemiBold"/>
+                        <TextBlock Text="ישיבת דעת אהרן · מערכת רב־קו" Foreground="{ThemeResource MutedTextBrush}" FontSize="12"/>
+                    </StackPanel>
+                </Border>
+            </NavigationView.Header>
+            <Frame x:Name="ContentFrame"/>
+        </NavigationView>
+    </Grid>
+</Window>
