@@ -11,7 +11,6 @@
             </StackPanel>
             <Grid ColumnSpacing="16">
                 <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
-                <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
                     <StackPanel Spacing="10">
                         <FontIcon Glyph="&#xE8D7;" FontSize="24" Foreground="{ThemeResource AccentBrush}"/>
