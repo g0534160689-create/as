@@ -3,9 +3,31 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     FlowDirection="RightToLeft">
-    <StackPanel Padding="34" Spacing="12">
-        <TextBlock Text="יומן פעילות" FontSize="30" FontWeight="SemiBold"/>
-        <TextBlock Text="כאן יוצגו שמירת הגדרות, שינויי מדיניות, חסימות, אישורי חלונות ושגיאות מערכת." Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
-        <InfoBar IsOpen="True" Severity="Informational" Title="יומן הפעילות יתווסף בשלב הבא" Message="המסך הוקם כחלק ממבנה המערכת החדש."/>
-    </StackPanel>
+    <Grid Padding="28" RowSpacing="14">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <StackPanel Spacing="4">
+            <TextBlock Text="יומן פעילות" FontSize="30" FontWeight="SemiBold"/>
+            <TextBlock x:Name="ActivitySummary" Text="פעולות מערכת, שינויים, חסימות ושגיאות" Foreground="{ThemeResource MutedTextBrush}"/>
+        </StackPanel>
+        <Grid Grid.Row="1" ColumnSpacing="8">
+            <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+            <TextBox x:Name="SearchText" PlaceholderText="חיפוש ביומן..." TextChanged="SearchText_TextChanged"/>
+            <Button Grid.Column="1" Content="רענן" Click="Refresh_Click"/>
+            <Button Grid.Column="2" Content="נקה יומן" Click="Clear_Click"/>
+        </Grid>
+        <Border Grid.Row="2" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="12" Padding="8">
+            <ListView x:Name="ActivityList" SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="8" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition Width="100"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Time}" Foreground="{ThemeResource MutedTextBrush}" FontSize="12"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Category}" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Message}" TextWrapping="Wrap"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
+    </Grid>
 </Page>
