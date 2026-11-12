@@ -17,19 +17,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup .NET 9
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
+
+      - name: Setup Visual Studio MSBuild
+        uses: microsoft/setup-msbuild@v2
+
       - name: Restore
         run: dotnet restore RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj
-      - name: Build Release
-        run: dotnet build RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj --configuration Release --no-restore -p:Platform=x64
+
+      - name: Build Release with Visual Studio MSBuild
+        shell: powershell
+        run: |
+          msbuild RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj /t:Build /m /v:minimal /p:Configuration=Release /p:Platform=x64 /p:WindowsPackageType=None /p:WindowsAppSDKSelfContained=true
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Publish self-contained x64
-        run: dotnet publish RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj --configuration Release --no-restore --runtime win-x64 --self-contained true -p:Platform=x64 -p:WindowsPackageType=None -p:WindowsAppSDKSelfContained=true -p:PublishSingleFile=false -p:PublishReadyToRun=true -o artifacts/publish
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force artifacts/publish | Out-Null
+          msbuild RavKavKiosk.WinUI/RavKavKiosk.WinUI.csproj /t:Publish /m /v:minimal /p:Configuration=Release /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:WindowsPackageType=None /p:WindowsAppSDKSelfContained=true /p:PublishSingleFile=false /p:PublishReadyToRun=true /p:PublishDir="$PWD/artifacts/publish/"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Install Inno Setup
         shell: powershell
         run: choco install innosetup --yes --no-progress
+
       - name: Compile Windows installer
         shell: powershell
         run: |
@@ -37,6 +53,7 @@ jobs:
           $version = if ("${{ github.ref_type }}" -eq "tag") { "${{ github.ref_name }}".TrimStart("v") } else { "1.0.${{ github.run_number }}" }
           & "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" "/DAppVersion=$version" "installer\RavKavKiosk.iss"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Upload Windows installer
         uses: actions/upload-artifact@v4
         with:
@@ -44,6 +61,7 @@ jobs:
           path: artifacts/installer/RavKavKiosk-Setup-x64.exe
           if-no-files-found: error
           retention-days: 30
+
       - name: Upload portable publish folder
         uses: actions/upload-artifact@v4
         with:
@@ -51,6 +69,7 @@ jobs:
           path: artifacts/publish/
           if-no-files-found: error
           retention-days: 14
+
       - name: Publish GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
