@@ -28,7 +28,7 @@
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="הגדרות" Tag="settings">
-                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE settings;"/></NavigationViewItem.Icon>
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE713;"/></NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
             <NavigationView.Header>
