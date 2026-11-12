@@ -46,7 +46,7 @@ public sealed partial class ActivityPage : Page
             var dialog = new ContentDialog
             {
                 Title = "הייצוא הושלם",
-                Content = $"קובץ CSV נוצר בהצלחה עם {_entries.Count} רשומות.\\n{path}",
+                Content = $"קובץ CSV נוצר בהצלחה עם {_entries.Count} רשומות.\n{path}",
                 PrimaryButtonText = "פתח מיקום קובץ",
                 CloseButtonText = "סגור",
                 DefaultButton = ContentDialogButton.Primary,
