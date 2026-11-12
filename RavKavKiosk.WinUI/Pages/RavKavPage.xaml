@@ -1,0 +1,21 @@
+<Page
+    x:Class="RavKavKiosk.WinUI.Pages.RavKavPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    FlowDirection="RightToLeft">
+    <Grid Padding="28" RowSpacing="14">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <StackPanel Spacing="4">
+            <TextBlock Text="עמדת רב־קו" FontSize="28" FontWeight="SemiBold"/>
+            <TextBlock Text="סביבת ההטענה תיטען כאן באמצעות WebView2" Foreground="{ThemeResource MutedTextBrush}"/>
+        </StackPanel>
+        <Border Grid.Row="1" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="24">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+                <FontIcon Glyph="&#xE8D7;" FontSize="42" Foreground="{ThemeResource AccentBrush}"/>
+                <TextBlock Text="רכיב ההטענה עדיין לא חובר" FontSize="20" FontWeight="SemiBold"/>
+                <TextBlock Text="לא נציג כאילו הקורא או אתר ההטענה כבר פועלים. החיבור יבוצע וייבדק בשלב הבא." Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap" MaxWidth="520" TextAlignment="Center"/>
+                <Button Content="פתח את רב־קו אונליין" Click="OpenSite_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
