@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System.Diagnostics;
 using RavKavKiosk.WinUI.Services;
 
 namespace RavKavKiosk.WinUI.Pages;
@@ -35,6 +36,44 @@ public sealed partial class ActivityPage : Page
 
     private void SearchText_TextChanged(object sender, TextChangedEventArgs e) => ApplyFilter();
     private void Refresh_Click(object sender, RoutedEventArgs e) => Refresh();
+
+
+    private async void Export_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var path = ActivityLogExport.ExportCsv(_entries);
+            var dialog = new ContentDialog
+            {
+                Title = "הייצוא הושלם",
+                Content = $"קובץ CSV נוצר בהצלחה עם {_entries.Count} רשומות.\\n{path}",
+                PrimaryButtonText = "פתח מיקום קובץ",
+                CloseButtonText = "סגור",
+                DefaultButton = ContentDialogButton.Primary,
+                XamlRoot = XamlRoot
+            };
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{path}\"")
+                {
+                    UseShellExecute = true
+                });
+            }
+            ActivityLogStore.Write("Export", $"יומן הפעילות יוצא לקובץ CSV ({_entries.Count} רשומות)");
+        }
+        catch (Exception ex)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "הייצוא נכשל",
+                Content = ex.Message,
+                CloseButtonText = "סגור",
+                XamlRoot = XamlRoot
+            };
+            await dialog.ShowAsync();
+            ActivityLogStore.Write("Export", ex.Message, "Error");
+        }
+    }
 
     private async void Clear_Click(object sender, RoutedEventArgs e)
     {
