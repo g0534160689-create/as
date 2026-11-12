@@ -1,0 +1,31 @@
+<Page
+    x:Class="RavKavKiosk.WinUI.Pages.AdminPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    FlowDirection="RightToLeft">
+    <ScrollViewer>
+        <StackPanel Padding="34" Spacing="22">
+            <StackPanel Spacing="5">
+                <TextBlock Text="ניהול מערכת" FontSize="30" FontWeight="SemiBold"/>
+                <TextBlock Text="מרכז בקרה למדיניות, אבטחה והתנהגות האתרים" Foreground="{ThemeResource MutedTextBrush}"/>
+            </StackPanel>
+            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="22">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="הרשאות וחלונות" FontSize="20" FontWeight="SemiBold"/>
+                    <ToggleSwitch x:Name="AllowPopupsSwitch" Header="אפשר חלונות קופצים מאתרים מורשים" IsOn="True"/>
+                    <ToggleSwitch x:Name="AllowExternalLinksSwitch" Header="אפשר קישורים חיצוניים מאושרים" IsOn="False"/>
+                    <ToggleSwitch x:Name="KeepActivitySwitch" Header="תעד פעולות ושינויים ביומן" IsOn="True"/>
+                    <Button Content="שמור הגדרות" HorizontalAlignment="Left" Click="Save_Click"/>
+                    <InfoBar x:Name="SaveStatus" IsOpen="False" Severity="Success" Title="ההגדרות נשמרו"/>
+                </StackPanel>
+            </Border>
+            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="22">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="רשימות וכללי אתרים" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock Text="בשלב הבא יתווספו כאן רשימה שחורה ולבנה, כללי חסימה לפי כתובת, שליטה ברכיבי דף, החלפת טקסט ותמונות, ייבוא וייצוא גיבויים והיסטוריית שינויים." TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
+                    <Button Content="פתיחת ניהול מתקדם" HorizontalAlignment="Left" IsEnabled="False"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
