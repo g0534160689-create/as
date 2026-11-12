@@ -6,7 +6,7 @@ namespace RavKavKiosk.WinUI.Pages;
 
 public sealed partial class SettingsPage : Page
 {
-    private bool _loading;
+    private bool _loading = true;
 
     public SettingsPage()
     {
