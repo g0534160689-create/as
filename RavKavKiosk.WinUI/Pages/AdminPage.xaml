@@ -4,45 +4,53 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     FlowDirection="RightToLeft">
     <ScrollViewer>
-        <StackPanel Padding="34" Spacing="22">
+        <StackPanel Padding="30" Spacing="18">
             <StackPanel Spacing="5">
                 <TextBlock Text="ניהול מערכת" FontSize="30" FontWeight="SemiBold"/>
-                <TextBlock Text="מרכז בקרה למדיניות, אבטחה והתנהגות האתרים" Foreground="{ThemeResource MutedTextBrush}"/>
+                <TextBlock Text="מדיניות גלישה, חלונות, שמירה ושליטה חזותית" Foreground="{ThemeResource MutedTextBrush}"/>
             </StackPanel>
-            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="22">
-                <StackPanel Spacing="16">
-                    <TextBlock Text="הרשאות וחלונות" FontSize="20" FontWeight="SemiBold"/>
-                    <ToggleSwitch x:Name="AllowPopupsSwitch" Header="אפשר חלונות קופצים מאתרים מורשים"/>
+            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="הרשאות גלישה" FontSize="20" FontWeight="SemiBold"/>
+                    <ToggleSwitch x:Name="AllowPopupsSwitch" Header="אפשר חלונות קופצים מאתרים מאושרים"/>
                     <ToggleSwitch x:Name="AllowExternalLinksSwitch" Header="אפשר קישורים חיצוניים מאושרים"/>
+                    <ToggleSwitch x:Name="EnforceWhitelistSwitch" Header="מצב רשימה לבנה בלבד (חוסם כל אתר שאינו ברשימה)"/>
                     <ToggleSwitch x:Name="KeepActivitySwitch" Header="תעד פעולות ושינויים ביומן"/>
                 </StackPanel>
             </Border>
-            <Grid ColumnSpacing="16">
+            <Grid ColumnSpacing="14">
                 <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
-                <Border Grid.Column="0" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
-                    <StackPanel Spacing="10">
-                        <TextBlock Text="רשימה שחורה" FontSize="19" FontWeight="SemiBold"/>
-                        <TextBlock Text="דומיין אחד בכל שורה. לדוגמה: example.com" Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
-                        <TextBox x:Name="BlacklistText" AcceptsReturn="True" MinHeight="170" TextWrapping="Wrap" PlaceholderText="example.com&#10;ads.example.org"/>
+                <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="18">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="רשימה שחורה" FontSize="18" FontWeight="SemiBold"/>
+                        <TextBlock Text="דומיין אחד בכל שורה" Foreground="{ThemeResource MutedTextBrush}"/>
+                        <TextBox x:Name="BlacklistText" AcceptsReturn="True" MinHeight="130" TextWrapping="Wrap" PlaceholderText="example.com"/>
                     </StackPanel>
                 </Border>
-                <Border Grid.Column="1" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
-                    <StackPanel Spacing="10">
-                        <TextBlock Text="רשימה לבנה" FontSize="19" FontWeight="SemiBold"/>
-                        <TextBlock Text="אתרים שמורשים במפורש. דומיין אחד בכל שורה." Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
-                        <TextBox x:Name="WhitelistText" AcceptsReturn="True" MinHeight="170" TextWrapping="Wrap" PlaceholderText="ravkavonline.co.il"/>
+                <Border Grid.Column="1" Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="18">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="רשימה לבנה" FontSize="18" FontWeight="SemiBold"/>
+                        <TextBlock Text="דומיינים שמורשים במפורש" Foreground="{ThemeResource MutedTextBrush}"/>
+                        <TextBox x:Name="WhitelistText" AcceptsReturn="True" MinHeight="130" TextWrapping="Wrap" PlaceholderText="ravkavonline.co.il"/>
                     </StackPanel>
                 </Border>
             </Grid>
+            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="18">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="שליטה חזותית באלמנטים" FontSize="19" FontWeight="SemiBold"/>
+                    <TextBlock Text="אפשר לבחור אלמנט ישירות במסך עמדת רב־קו ולשמור אותו להסתרה. כאן ניתן לערוך את בוררי CSS שנשמרו." Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
+                    <TextBox x:Name="HiddenSelectorsText" AcceptsReturn="True" MinHeight="110" TextWrapping="Wrap" PlaceholderText="#banner&#10;.advertisement"/>
+                </StackPanel>
+            </Border>
             <StackPanel Orientation="Horizontal" Spacing="10">
                 <Button Content="שמור את כל ההגדרות" Click="Save_Click"/>
-                <Button Content="טען מחדש מהדיסק" Click="Reload_Click"/>
+                <Button Content="טען מחדש" Click="Reload_Click"/>
             </StackPanel>
-            <InfoBar x:Name="SaveStatus" IsOpen="False" Severity="Success" Title="ההגדרות נשמרו במחשב"/>
-            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
-                <StackPanel Spacing="8">
-                    <TextBlock Text="הערה חשובה" FontSize="18" FontWeight="SemiBold"/>
-                    <TextBlock Text="הרשימות נשמרות כעת בקובץ settings.json במחשב. אכיפת החסימה וההרשאה בתוך WebView2 תחובר בשלב נפרד; שמירת הרשימה לבדה עדיין אינה חוסמת אתרים בפועל." TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
+            <InfoBar x:Name="SaveStatus" IsOpen="False" Severity="Success"/>
+            <Border Background="{ThemeResource.PanelBackgroundBrush}" CornerRadius="12" Padding="16">
+                <StackPanel Spacing="5">
+                    <TextBlock Text="שמירה וגיבוי" FontWeight="SemiBold"/>
+                    <TextBlock Text="ההגדרות נשמרות בקובץ מקומי עם גיבוי settings.json.bak. כל שינוי במדיניות מתועד ביומן הפעילות." TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
                 </StackPanel>
             </Border>
         </StackPanel>
