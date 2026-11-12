@@ -15,6 +15,7 @@ public static class ActivityLogStore
 
     public static void Write(string category, string message, string level = "Info")
     {
+        if (!LocalSettingsStore.Load().KeepActivity) return;
         try
         {
             Directory.CreateDirectory(Folder);
