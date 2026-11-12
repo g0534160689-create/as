@@ -36,7 +36,7 @@
             </Grid>
             <StackPanel Orientation="Horizontal" Spacing="10">
                 <Button Content="שמור את כל ההגדרות" Click="Save_Click"/>
-                <Button Content="טען מחדש מהדיסק" Click="Reload_Click" Style="{StaticResource DefaultButtonStyle}"/>
+                <Button Content="טען מחדש מהדיסק" Click="Reload_Click"/>
             </StackPanel>
             <InfoBar x:Name="SaveStatus" IsOpen="False" Severity="Success" Title="ההגדרות נשמרו במחשב"/>
             <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
