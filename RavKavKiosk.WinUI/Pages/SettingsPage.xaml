@@ -3,13 +3,30 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     FlowDirection="RightToLeft">
-    <StackPanel Padding="34" Spacing="18">
-        <TextBlock Text="הגדרות" FontSize="30" FontWeight="SemiBold"/>
-        <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="22">
-            <StackPanel Spacing="12">
-                <TextBlock Text="מראה המערכת" FontSize="19" FontWeight="SemiBold"/>
-                <TextBlock Text="ערכת הנושא הראשונית היא כהה. בחירת ערכות נושא נוספות תתווסף בהמשך." Foreground="{ThemeResource MutedTextBrush}" TextWrapping="Wrap"/>
+    <ScrollViewer>
+        <StackPanel Padding="30" Spacing="18">
+            <StackPanel Spacing="4">
+                <TextBlock Text="הגדרות" FontSize="30" FontWeight="SemiBold"/>
+                <TextBlock Text="התאמה אישית, נתוני מערכת וגיבוי" Foreground="{ThemeResource MutedTextBrush}"/>
             </StackPanel>
-        </Border>
-    </StackPanel>
+            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="מראה המערכת" FontSize="19" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="ThemeCombo" Header="ערכת נושא" SelectedIndex="0" SelectionChanged="ThemeCombo_SelectionChanged">
+                        <ComboBoxItem Content="כהה" Tag="Dark"/>
+                        <ComboBoxItem Content="בהירה" Tag="Light"/>
+                    </ComboBox>
+                    <InfoBar IsOpen="True" Severity="Informational" Title="הערה" Message="ערכת הנושא תוחל לאחר הפעלה מחדש של התוכנה."/>
+                </StackPanel>
+            </Border>
+            <Border Background="{ThemeResource PanelBackgroundBrush}" CornerRadius="14" Padding="20">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="שמירה וגיבוי" FontSize="19" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="SettingsPathText" TextWrapping="Wrap" Foreground="{ThemeResource MutedTextBrush}"/>
+                    <Button Content="צור גיבוי עכשיו" Click="Backup_Click"/>
+                    <InfoBar x:Name="SettingsStatus" IsOpen="False"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
 </Page>
