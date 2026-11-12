@@ -154,7 +154,23 @@ public sealed partial class RavKavPage : Page
     {
         if (Browser.CoreWebView2 is null) return;
         var selectors = JsonSerializer.Serialize(_settings.HiddenElementSelectors);
-        var script = $"(() => {{ const selectors = {selectors}; for (const selector of selectors) {{ try {{ document.querySelectorAll(selector).forEach(el => { if (!el.hasAttribute('data-daat-hidden')) { el.setAttribute('data-daat-hidden','1'); el.dataset.daatDisplay = el.style.getPropertyValue('display'); el.dataset.daatPriority = el.style.getPropertyPriority('display'); } el.style.setProperty('display','none','important'); }); }} catch {{ }} }} }})();";
+        var script = """
+        (() => {
+          const selectors = __SELECTORS__;
+          for (const selector of selectors) {
+            try {
+              document.querySelectorAll(selector).forEach(el => {
+                if (!el.hasAttribute('data-daat-hidden')) {
+                  el.setAttribute('data-daat-hidden', '1');
+                  el.dataset.daatDisplay = el.style.getPropertyValue('display');
+                  el.dataset.daatPriority = el.style.getPropertyPriority('display');
+                }
+                el.style.setProperty('display', 'none', 'important');
+              });
+            } catch { }
+          }
+        })();
+        """.Replace("__SELECTORS__", selectors);
         await Browser.CoreWebView2.ExecuteScriptAsync(script);
     }
 
@@ -173,7 +189,15 @@ public sealed partial class RavKavPage : Page
         _settings.HiddenElementSelectors.Clear();
         SaveSettings("נוקו כל כללי הסתרת האלמנטים");
         if (Browser.CoreWebView2 is not null)
-            await Browser.CoreWebView2.ExecuteScriptAsync("document.querySelectorAll('[data-daat-hidden="1"]').forEach(el => { el.style.removeProperty('display'); if (el.dataset.daatDisplay) el.style.setProperty('display', el.dataset.daatDisplay, el.dataset.daatPriority || ''); delete el.dataset.daatDisplay; delete el.dataset.daatPriority; el.removeAttribute('data-daat-hidden'); });");
+            await Browser.CoreWebView2.ExecuteScriptAsync("""
+            document.querySelectorAll('[data-daat-hidden="1"]').forEach(el => {
+              el.style.removeProperty('display');
+              if (el.dataset.daatDisplay) el.style.setProperty('display', el.dataset.daatDisplay, el.dataset.daatPriority || '');
+              delete el.dataset.daatDisplay;
+              delete el.dataset.daatPriority;
+              el.removeAttribute('data-daat-hidden');
+            });
+            """);
         SelectedElementText.Text = "רשימת האלמנטים המוסתרים נוקתה";
     }
 
