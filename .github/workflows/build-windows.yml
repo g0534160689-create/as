@@ -56,6 +56,11 @@ jobs:
           & $compiler "/DAppVersion=$version" "installer\RavKavKiosk.iss"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: Create portable ZIP
+        shell: powershell
+        run: |
+          Compress-Archive -Path artifacts/publish/* -DestinationPath artifacts/RavKavKiosk-Windows-x64-Portable.zip -Force
+
       - name: Upload Windows installer
         uses: actions/upload-artifact@v4
         with:
@@ -73,8 +78,12 @@ jobs:
           retention-days: 14
 
       - name: Publish GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('v1.0.{0}', github.run_number) }}
+          name: RavKavKiosk ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('v1.0.{0}', github.run_number) }}
           generate_release_notes: true
-          files: artifacts/installer/RavKavKiosk-Setup-x64.exe
+          files: |
+            artifacts/installer/RavKavKiosk-Setup-x64.exe
+            artifacts/RavKavKiosk-Windows-x64-Portable.zip
