@@ -8,6 +8,7 @@ public sealed partial class DashboardPage : Page
 {
     public DashboardPage()
     {
+        // Dashboard is constructed in code to avoid runtime XAML loading.
         FlowDirection = FlowDirection.RightToLeft;
         var root = new ScrollViewer();
         var layout = new StackPanel { Padding = new Thickness(30), Spacing = 20 };
@@ -30,6 +31,12 @@ public sealed partial class DashboardPage : Page
         root.Content = layout;
         Content = root;
     }
+
+    // Retained because the compiled XAML still declares these Click handlers.
+    // The runtime dashboard uses the equivalent code-created buttons above.
+    private void OpenRavKav_Click(object sender, RoutedEventArgs e) => Frame?.Navigate(typeof(RavKavPage));
+    private void OpenAdmin_Click(object sender, RoutedEventArgs e) => Frame?.Navigate(typeof(AdminPage));
+    private void OpenActivity_Click(object sender, RoutedEventArgs e) => Frame?.Navigate(typeof(ActivityPage));
 
     private static void AddCard(Grid grid, int column, string title, string description, string buttonText, Action action)
     {
