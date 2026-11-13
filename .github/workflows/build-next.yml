@@ -1,0 +1,59 @@
+name: Build clean WinUI application
+
+on:
+  push:
+    branches: [ "rewrite/clean-foundation" ]
+    paths:
+      - "RavKavKiosk.Next/**"
+      - ".github/workflows/build-next.yml"
+  pull_request:
+    paths:
+      - "RavKavKiosk.Next/**"
+      - ".github/workflows/build-next.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore
+        run: dotnet restore RavKavKiosk.Next/RavKavKiosk.Next.csproj
+
+      - name: Build x64 Release
+        shell: powershell
+        run: |
+          msbuild RavKavKiosk.Next/RavKavKiosk.Next.csproj /t:Build /m /v:minimal /p:Configuration=Release /p:Platform=x64 /p:WindowsPackageType=None /p:WindowsAppSDKSelfContained=true
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Publish self-contained x64
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force artifacts/next | Out-Null
+          msbuild RavKavKiosk.Next/RavKavKiosk.Next.csproj /t:Publish /m /v:minimal /p:Configuration=Release /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:WindowsPackageType=None /p:WindowsAppSDKSelfContained=true /p:PublishSingleFile=false /p:PublishDir="$PWD/artifacts/next/"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Package portable ZIP
+        run: Compress-Archive -Path artifacts/next/* -DestinationPath artifacts/RavKavKiosk-Next-x64.zip -Force
+        shell: powershell
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: RavKavKiosk-Next-x64
+          path: artifacts/RavKavKiosk-Next-x64.zip
+          if-no-files-found: error
+          retention-days: 14

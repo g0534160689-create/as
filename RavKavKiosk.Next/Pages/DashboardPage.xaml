@@ -1,0 +1,19 @@
+<Page
+    x:Class="RavKavKiosk.Next.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    FlowDirection="RightToLeft">
+    <ScrollViewer>
+        <StackPanel Padding="32" Spacing="18">
+            <TextBlock Text="ברוכים הבאים" FontSize="32" FontWeight="SemiBold" />
+            <TextBlock Text="מרכז השליטה של עמדת השירות" FontSize="16" Opacity="0.75" />
+            <Border Background="{StaticResource PanelBackgroundBrush}" CornerRadius="14" Padding="22">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="תשתית חדשה ונקייה" FontSize="22" FontWeight="SemiBold" />
+                    <TextBlock Text="המערכת נבנית מחדש במבנה מודולרי: ממשק, שירותי נתונים, מדיניות גלישה ותיעוד תקלות מופרדים זה מזה." TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+            <TextBlock Text="בחר אזור עבודה בתפריט הצדדי כדי להמשיך." />
+        </StackPanel>
+    </ScrollViewer>
+</Page>
