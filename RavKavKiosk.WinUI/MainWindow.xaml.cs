@@ -25,10 +25,10 @@ public sealed partial class MainWindow : Window
             : ElementTheme.Dark;
         _rootNavigation.SelectionChanged += RootNavigation_SelectionChanged;
 
-        AddMenuItem("ראשי", "home", "\\uE80F");
-        AddMenuItem("עמדת רב־קו", "ravkav", "\\uE8D7");
-        AddMenuItem("ניהול מערכת", "admin", "\\uE713");
-        AddMenuItem("יומן פעילות", "activity", "\\uE81C");
+        AddMenuItem("ראשי", "home", char.ConvertFromUtf32(0xE80F));
+        AddMenuItem("עמדת רב־קו", "ravkav", char.ConvertFromUtf32(0xE8D7));
+        AddMenuItem("ניהול מערכת", "admin", char.ConvertFromUtf32(0xE713));
+        AddMenuItem("יומן פעילות", "activity", char.ConvertFromUtf32(0xE81C));
 
         _rootNavigation.Content = _contentFrame;
         RootGrid.Children.Add(_rootNavigation);
