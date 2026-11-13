@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using RavKavKiosk.Next.Services;
+using System.Runtime.InteropServices;
 
 namespace RavKavKiosk.Next;
 
@@ -7,10 +8,10 @@ public partial class App : Application
 {
     private Window? _window;
 
-    public App()
-    {
-        InitializeComponent();
-    }
+    [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern int MessageBoxW(IntPtr hWnd, string text, string caption, uint type);
+
+    public App() => InitializeComponent();
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
@@ -22,14 +23,10 @@ public partial class App : Application
         catch (Exception ex)
         {
             StartupDiagnostics.Write(ex, "Application launch");
-            _ = new Microsoft.UI.Xaml.Controls.ContentDialog
-            {
-                Title = "שגיאה בהפעלת התוכנה",
-                Content = $"{ex.Message}\n\nיומן שגיאות: {StartupDiagnostics.LogPath}",
-                CloseButtonText = "סגירה",
-                XamlRoot = (_window?.Content as Microsoft.UI.Xaml.FrameworkElement)?.XamlRoot
-            };
-            throw;
+            MessageBoxW(IntPtr.Zero,
+                "לא ניתן להפעיל את התוכנה. פרטי התקלה נשמרו כאן:\n" +
+                StartupDiagnostics.LogPath + "\n\n" + ex.Message,
+                "עמדת שירות", 0x10);
         }
     }
 }
