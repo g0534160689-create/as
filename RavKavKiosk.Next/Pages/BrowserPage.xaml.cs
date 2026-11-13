@@ -36,7 +36,7 @@ public sealed partial class BrowserPage : Page
                     ActivityStore.Write("Policy", $"חסימת {args.Uri}: {reason}");
                 }
             };
-            core.NewWindowRequested += (_, args) =>
+            core.NewWindowRequested += (sender, args) =>
             {
                 args.Handled = true;
                 var settings = SettingsStore.Load();
