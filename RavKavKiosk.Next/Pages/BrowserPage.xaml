@@ -1,0 +1,23 @@
+<Page
+    x:Class="RavKavKiosk.Next.Pages.BrowserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    FlowDirection="RightToLeft">
+    <Grid Padding="12" RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="AddressBox" PlaceholderText="הזן כתובת אתר" />
+            <Button Grid.Column="1" Content="עבור" Click="Go_Click" />
+        </Grid>
+        <Grid x:Name="BrowserHost" Grid.Row="1" />
+        <TextBlock x:Name="BrowserStatus" Grid.Row="2" Text="מאתחל דפדפן..." Opacity="0.75" />
+    </Grid>
+</Page>
