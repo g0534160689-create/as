@@ -12,9 +12,8 @@ public sealed partial class MainWindow : Window
 
     public MainWindow()
     {
-        // Build the window entirely in code. This deliberately avoids loading
-        // MainWindow.xaml at runtime, so a XAML resource/parser issue cannot
-        // prevent the application window from opening.
+        // Construct the shell in code; do not trigger SelectionChanged while
+        // NavigationView is still initializing its native selection model.
         Title = "אוצר החכמה | עמדת רב־קו";
         _rootNavigation.IsBackButtonVisible = NavigationViewBackButtonVisible.Collapsed;
         _rootNavigation.IsSettingsVisible = true;
@@ -24,7 +23,6 @@ public sealed partial class MainWindow : Window
         _rootNavigation.RequestedTheme = LocalSettingsStore.Load().Theme == "Light"
             ? ElementTheme.Light
             : ElementTheme.Dark;
-        _rootNavigation.SelectionChanged += RootNavigation_SelectionChanged;
 
         AddMenuItem("ראשי", "home", char.ConvertFromUtf32(0xE80F));
         AddMenuItem("עמדת רב־קו", "ravkav", char.ConvertFromUtf32(0xE8D7));
@@ -34,8 +32,10 @@ public sealed partial class MainWindow : Window
         _rootNavigation.Content = _contentFrame;
         Content = _rootNavigation;
 
-        _rootNavigation.SelectedItem = _rootNavigation.MenuItems[0];
+        // Navigate directly to the initial page. Selecting a menu item
+        // programmatically here can raise a native Element-not-found COM error.
         Navigate(typeof(DashboardPage));
+        _rootNavigation.SelectionChanged += RootNavigation_SelectionChanged;
     }
 
     private void AddMenuItem(string title, string tag, string glyph)
