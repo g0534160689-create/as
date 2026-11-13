@@ -12,8 +12,9 @@ public sealed partial class MainWindow : Window
 
     public MainWindow()
     {
-        InitializeComponent();
-
+        // Build the window entirely in code. This deliberately avoids loading
+        // MainWindow.xaml at runtime, so a XAML resource/parser issue cannot
+        // prevent the application window from opening.
         Title = "אוצר החכמה | עמדת רב־קו";
         _rootNavigation.IsBackButtonVisible = NavigationViewBackButtonVisible.Collapsed;
         _rootNavigation.IsSettingsVisible = true;
@@ -31,7 +32,7 @@ public sealed partial class MainWindow : Window
         AddMenuItem("יומן פעילות", "activity", char.ConvertFromUtf32(0xE81C));
 
         _rootNavigation.Content = _contentFrame;
-        RootGrid.Children.Add(_rootNavigation);
+        Content = _rootNavigation;
 
         _rootNavigation.SelectedItem = _rootNavigation.MenuItems[0];
         Navigate(typeof(DashboardPage));
